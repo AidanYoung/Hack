@@ -1,0 +1,351 @@
+<div id="game">
+  Next player : <i id="color"></i>
+  <div id="messages">
+    <span id="p1">Red</span>
+    <span id="p2">Yellow</span>
+    <span id="newgame">Are you sure you want to start a new game?</span>
+    <span id="won">The %s player won.
+Do you want to play a new game?</span>
+  </div>
+  <table>
+    <tr>
+      <td id="color11"></td>
+      <td id="color12"></td>
+      <td id="color13"></td>
+      <td id="color14"></td>
+      <td id="color15"></td>
+      <td id="color16"></td>
+      <td id="color17"></td>
+    </tr>
+    <tr>
+      <td id="color21"></td>
+      <td id="color22"></td>
+      <td id="color23"></td>
+      <td id="color24"></td>
+      <td id="color25"></td>
+      <td id="color26"></td>
+      <td id="color27"></td>
+    </tr>
+    <tr>
+      <td id="color31"></td>
+      <td id="color32"></td>
+      <td id="color33"></td>
+      <td id="color34"></td>
+      <td id="color35"></td>
+      <td id="color36"></td>
+      <td id="color37"></td>
+    </tr>
+    <tr>
+      <td id="color41"></td>
+      <td id="color42"></td>
+      <td id="color43"></td>
+      <td id="color44"></td>
+      <td id="color45"></td>
+      <td id="color46"></td>
+      <td id="color47"></td>
+    </tr>
+    <tr>
+      <td id="color51"></td>
+      <td id="color52"></td>
+      <td id="color53"></td>
+      <td id="color54"></td>
+      <td id="color55"></td>
+      <td id="color56"></td>
+      <td id="color57"></td>
+    </tr>
+    <tr>
+      <td id="color61"></td>
+      <td id="color62"></td>
+      <td id="color63"></td>
+      <td id="color64"></td>
+      <td id="color65"></td>
+      <td id="color66"></td>
+      <td id="color67"></td>
+    </tr>
+  </table>
+  <div class="left leg"></div>
+  <div class="right leg"></div>
+  <button id="restart">New game</button>
+  <style>
+    #messages {
+  display: none;
+}
+#restart {
+color: #fff !important;
+text-transform: uppercase;
+text-decoration: none;
+background: #ed3330;
+padding: 30px;
+border-radius: 5px;
+font-size: 20px;
+display: inline-block;
+border: none;
+transition: all 0.4s ease 0s;
+}
+
+#restart:hover {
+background: #434343;
+letter-spacing: 9px;
+-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+transition: all 0.4s ease 0s;
+}
+i {
+  border-radius: 21px;
+  padding: 9px;
+  transition: 0.2s ease-out;
+  width: 80px;
+  display: inline-block
+}
+
+table {
+  width: 100%;
+}
+
+#game {
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
+  width: 340px;
+  text-align: center
+}
+
+.leg {
+  box-shadow: 7px 7px 28px 0px rgba(50, 50, 50, 0.6);
+  height: 55px;
+  width: 12px;
+  border-radius: 0 0 8px 8px;
+  float: left
+}
+
+.right {
+  border: 0px solid #00f;
+  float: right
+}
+
+table {
+  border: 0px solid #00f;
+  box-shadow: 7px 7px 28px 0px rgba(50, 50, 50, 0.6);
+  padding: 7px;
+  border-spacing: 4px;
+  border-radius: 8px 8px 0 0
+}
+
+td {
+  border: 0px solid #00f;
+  border-radius: 2000px;
+  box-shadow: inset 7px 7px 20px 0px rgba(50, 50, 50, 0.4);
+  opacity: 1;
+  height: 40px;
+  background: #fff
+}
+
+button {
+  margin: 20px auto 0
+}
+
+#game,
+table {
+  margin: 30px auto 0
+}
+
+.leg,
+table {
+  background: #00f
+}
+
+td:hover {
+  opacity: 0.6
+}
+
+td.Red,
+td.Yellow {
+  box-shadow: inset 0 0 25px rgba(99, 99, 99, 0.7)
+}
+
+.Red:hover,
+.Yellow:hover {
+  opacity: 1
+}
+
+.Yellow {
+  background: #ff0
+}
+
+.Red {
+  background: #f00;
+  color: #fff
+}
+
+@media (min-width: 500px) {
+  #game {
+    width: 405px;
+  }
+  td {
+    height: 47px;
+    border-width: 1px
+  }
+  .leg {
+    width: 13px;
+    height: 60px
+  }
+}
+
+@media (min-width: 600px) {
+  #game {
+    width: 503px;
+  }
+  td {
+    height: 59px;
+    border-width: 2px
+  }
+  .leg {
+    width: 14px;
+    height: 80px
+  }
+  button {
+    margin: 30px auto 0;
+    padding: 4px 10px
+  }
+}
+
+@media (min-width: 700px) {
+  #game {
+    width: 601px;
+  }
+  td {
+    height: 71px;
+    border-width: 3px
+  }
+  .leg {
+    width: 16px;
+    height: 90px
+  }
+  button {
+    padding: 5px 20px
+  }
+  td {
+    box-shadow: inset 15px 15px 15px 0px rgba(50, 50, 50, 0.25)
+  }
+  td.Red,
+  td.Yellow {
+    box-shadow: inset 0 0 20px rgba(99, 99, 99, 0.8)
+  }
+  .leg,
+  table {
+    box-shadow: 15px 15px 15px 0px rgba(50, 50, 50, 0.3)
+  }
+}
+
+@media (max-width: 370px) {
+  #game {
+    width: 249px;
+  }
+  td {
+    height: 29px;
+    border-width: 0
+  }
+  .leg {
+    width: 8px;
+    height: 40px
+  }
+  button {
+    margin: 10px auto 0
+  }
+  td {
+    box-shadow: inset 3px 3px 10px 0px rgba(50, 50, 50, 0.4)
+  }
+  td.Red,
+  td.Yellow {
+    box-shadow: inset 0 0 10px rgba(99, 99, 99, 0.7)
+  }
+  .leg,
+  table {
+    box-shadow: 3px 3px 10px 0px rgba(50, 50, 50, 0.6)
+  }
+}
+
+@media (max-width: 280px) {
+  #game {
+    width: 200px;
+  }
+  td {
+    height: 22px;
+  }
+  * {
+    box-shadow: none!important
+  }
+}
+</style>
+<script>
+  (function(doc, win, onclick, gid, classname, content, showMessage) {
+  var
+    a, b, c, colorLabel, cid, players, current, finished, newgameLabel, wonLabel, laststart = 1,
+    cellAt = function(i, j) {
+      return doc[gid](cid + i + j);
+    },
+    isCurrentColor = function(i, j) {
+      return cellAt(i, j)[classname] === players[current];
+    },
+    start = function() {
+      current = laststart = (laststart + 1) % 2;
+      finished = 0;
+      colorLabel[content] = colorLabel[classname] = players[current = (current + 1) % 2];
+      for (a = 1; a < 7; a++)
+        for (b = 1; b < 8; b++)
+          cellAt(a, b)[classname] = '';
+    },
+    makeMove = function(i, j, s) {
+      s > 0 && (cellAt(s, j)[classname] = '');
+      cellAt(s + 1, j)[classname] = players[current];
+      s === i - 1 ? function(i, j) {
+        return function(i, j) {
+          for (a = j - 1; 0 < a && isCurrentColor(i, a); a--) {}
+          for (b = j + 1; 8 > b && isCurrentColor(i, b); b++) {}
+          return 4 < b - a;
+        }(i, j) || function(i, j) {
+          for (c = i + 1; 7 > c && isCurrentColor(c, j); c++) {}
+          return 3 < c - i;
+        }(i, j) || function(i, j) {
+          for (a = i - 1, b = j - 1; 0 < a && !(1 > b) && isCurrentColor(a, b); a--)
+            b--;
+          for (c = i + 1, b = j + 1; 7 > c && !(7 < b) && isCurrentColor(c, b); c++)
+            b++;
+          return 4 < c - a
+        }(i, j) || function(i, j) {
+          for (a = i - 1, b = j + 1; 0 < a && !(7 < b) && isCurrentColor(a, b); a--)
+            b++;
+          for (c = i + 1, b = j - 1; 7 > c && !(1 > b) && isCurrentColor(c, b); c++)
+            b--;
+          return 4 < c - a;
+        }(i, j);
+      }(i, j) ? finished = 1 && win[showMessage](doc[gid](wonLabel)[content].replace("%s", players[current].toLowerCase())) && start() : colorLabel[content] = colorLabel[classname] = players[current = (current + 1) % 2] : setTimeout(function() {
+        makeMove(i, j, s + 1)
+      }, 20);
+
+    };
+
+  return function(n, w, c, h, p1, p2) {
+    cid = c;
+    newgameLabel = n;
+    wonLabel = w;
+    colorLabel = doc[gid](c);
+    players = [doc[gid](p1)[content], doc[gid](p2)[content]];
+    for (a = 1; a < 7; a++)
+      for (b = 1; b < 8; b++)
+        cellAt(a, b)[onclick] = function(b, a) {
+          return function() {
+            if (!finished)
+              for (a = 6; a > 0; a--)
+                if (!cellAt(a, b)[classname]) {
+                  makeMove(a, b, 0);
+                  break;
+                }
+          };
+        }(b);;
+    doc[gid](h)[onclick] = function() {
+      win[showMessage](doc[gid](newgameLabel)[content]) && start()
+    };
+    start();
+  };
+})(document, window, "onclick", "getElementById", "className", "innerHTML", "confirm")("newgame", "won", "color", "restart", "p1", "p2");
+</script>

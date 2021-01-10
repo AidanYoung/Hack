@@ -1,0 +1,758 @@
+<div id="playinfo">
+		<input id="playercount" class="green" type="number_format" placeholder="Enter No. of Players">
+		<button type="submit" onclick="playerstart()" class="red">Ready!</button>
+	</div>
+	<div id="players"></div>
+	<div id="player"></div>
+	<div id="pices"></div>
+	<div id="dicediv">
+		<button id="dice" onclick="role()" class="blue">Role!</button>
+	</div>
+	<div class="playarea">
+		<div id="board" class="skin"></div>
+		<div id="ladders">
+			<div id="ladder1"></div>
+			<div id="ladder2"></div>
+			<div id="ladder3"></div>
+			<div id="ladder4"></div>
+			<div id="ladder5"></div>
+			<div id="ladder6"></div>
+			<div id="ladder7"></div>
+		</div>
+		<div id="snakes">
+			<div id="snake1" class="red"></div>
+			<div id="snake2" class="green"></div>
+			<div id="snake3" class="orange"></div>
+			<div id="snake4" class="red"></div>
+			<div id="snake5" class="blue"></div>
+			<div id="snake6" class="orange"></div>
+			<div id="snake7" class="blue"></div>
+		</div>
+	</div>
+	<style>
+  * {
+	margin: 0;
+	padding: 0;
+	transition: 0.4s linear;
+}
+
+body {
+	background-color: rgba(27, 33, 31);
+	width: 100vw;
+	height: 100vh;
+}
+
+.red {
+	background-color: rgba(193, 82, 75);
+}
+
+.green {
+	background-color: rgba(198, 221, 180)
+}
+
+.orange {
+	background-color: rgba(231, 178, 44)
+}
+
+.blue {
+	background-color: rgba(172, 208, 212)
+}
+
+.skin {
+	background-color: rgba(244, 239, 200)
+}
+
+#board {
+	position: absolute;
+	top: 10vh;
+	width: 100vw;
+	height: 90vh;
+	filter: brightness(1.1)
+}
+
+.box {
+	width: 10vw;
+	height: 9vh;
+	display: inline-block;
+	position: relative;
+	outline: 1px solid yellow	);
+}
+
+p.boxnumber {
+	font-weight: 800;
+	margin-left: 2px;
+	margin-top: 2px;
+}
+
+#ladders {
+	position: relative;
+	top: 10vh;
+	width: 100vw;
+	height: 90vh;
+}
+
+#ladder1 {
+	position: absolute;
+	width: 3vw;
+	background-color: transparent;
+	border-left: 3px solid red;
+	border-right: 3px solid red;
+	top: 5vh;
+	left: 1vw;
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+}
+
+.steps {
+	width: 3vw;
+	height: 3px;
+	margin-top: 10px;
+	box-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+}
+
+#ladder2 {
+	position: absolute;
+	width: 3vw;
+	height: 15vh;
+	right: 3vw;
+	top: 1vh;
+	border-left: 3px solid skyblue;
+	border-right: 3px solid skyblue;
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	transform-origin: top right;
+}
+
+#ladder3 {
+	position: absolute;
+	width: 3vw;
+	bottom: 20vh;
+	right: 20vw;
+	border-left: 3px solid green);
+	border-right: 3px solid green;
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	transform-origin: bottom left;
+}
+
+#ladder4 {
+	position: absolute;
+	width: 3vw;
+	top: 10vh;
+	right: 43vw;
+	border-left: 3px solid rgb(193, 82, 75);
+	border-right: 3px solid rgb(193, 82, 75);
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	transform-origin: top left;
+}
+
+#ladder5 {
+	position: absolute;
+	width: 3vw;
+	top: 20vh;
+	left: 33vw;
+	border-left: 3px solid rgb(198, 221, 180);
+	border-right: 3px solid rgb(198, 221, 180);
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	transform-origin: top left;
+}
+
+#ladder6 {
+	position: absolute;
+	width: 3vw;
+	bottom: 1vh;
+	left: 25vw;
+	border-left: 3px solid rgb(193, 82, 75);
+	border-right: 3px solid rgb(193, 82, 75);
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	transform-origin: bottom left;
+}
+
+#ladder7 {
+	position: absolute;
+	width: 3vw;
+	bottom: 1vh;
+	right: 25vw;
+	border-left: 3px solid rgb(231, 178, 44);
+	border-right: 3px solid rgb(231, 178, 44);
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	transform-origin: bottom right;
+}
+
+#snakes {
+	position: absolute;
+	width: 100vw;
+	height: 90vh;
+	top: 10vh;
+}
+
+#snake1 {
+	position: absolute;
+	display: block;
+	width: 5vw;
+	height: 40px;
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	clip-path: polygon(40% 0%, 20% 42%, 100% 44%, 100% 54%, 20% 54%, 40% 100%, 0% 50%);
+	left: 10vw;
+	top: 10vh;
+}
+
+#snake2 {
+	position: absolute;
+	display: block;
+	width: 5vw;
+	height: 40px;
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	clip-path: polygon(40% 0%, 20% 42%, 100% 44%, 100% 54%, 20% 54%, 40% 100%, 0% 50%);
+	left: 95vw;
+	top: 40vh;
+	transform-origin: top left;
+}
+
+#snake3 {
+	position: absolute;
+	display: block;
+	width: 5vw;
+	height: 40px;
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	clip-path: polygon(40% 0%, 20% 42%, 100% 44%, 100% 54%, 20% 54%, 40% 100%, 0% 50%);
+	transform-origin: bottom right;
+	right: 24vw;
+	top: 8vh;
+}
+
+#snake4 {
+	position: absolute;
+	display: block;
+	height: 40px;
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	clip-path: polygon(40% 0%, 20% 42%, 100% 44%, 100% 54%, 20% 54%, 40% 100%, 0% 50%);
+	transform-origin: top left;
+	bottom: 15vh;
+	left: 12vw;
+}
+
+#snake5 {
+	position: absolute;
+	display: block;
+	height: 40px;
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	clip-path: polygon(40% 0%, 20% 42%, 100% 44%, 100% 54%, 20% 54%, 40% 100%, 0% 50%);
+	transform-origin: top left;
+	bottom: 30vh;
+	left: 5vw;
+}
+
+#snake6 {
+	position: absolute;
+	display: block;
+	height: 40px;
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	clip-path: polygon(40% 0%, 20% 42%, 100% 44%, 100% 54%, 20% 54%, 40% 100%, 0% 50%);
+	transform-origin: bottom right;
+	right: 10vw;
+	top: 35vh;
+}
+
+#snake7 {
+	position: absolute;
+	display: block;
+	height: 40px;
+	box-shadow: 1px 0px rgba(0, 0, 0, 0.2), -1px 0px rgba(0, 0, 0, 0.2);
+	clip-path: polygon(40% 0%, 20% 42%, 100% 44%, 100% 54%, 20% 54%, 40% 100%, 0% 50%);
+	right: 25vw;
+	bottom: 10vh;
+}
+
+#playinfo {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.8);
+	position: absolute;
+	z-index: 7;
+}
+
+#playinfo p {
+	font-size: 3em;
+	color: whitesmoke;
+	animation-name: winner;
+	animation-duration: 0.6s;
+}
+
+@keyframes winner{
+	0%{
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+#playinfo input {
+	border: none;
+	padding: 5px;
+	width: 120px;
+	outline: 1px solid rgba(193, 82, 75);
+	outline-offset: -4px;
+	border: 1px solid rgba(193, 82, 75);
+}
+
+#players {
+	position: absolute;
+}
+
+#players p {
+	color: whitesmoke;
+	font-size: 1.2em;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+#player {
+	position: absolute;
+	color: whitesmoke;
+	top: 10vh;
+	right: 1vw;
+	z-index: 1;
+	font-size: 1.3em;
+	text-shadow: 1px 1px 3px blue;
+}
+
+button {
+	border: none;
+	padding: 5px;
+	color: whitesmoke;
+	transition: 0.1s;
+}
+
+button:hover {
+	outline: 1px;
+	outline-style: solid;
+	outline-offset: 2px;
+	outline-color: rgba(193, 82, 75);
+	z-index: -1;
+}
+
+#dicediv {
+	position: absolute;
+	right: 1vw;
+	top: 1vh;
+}
+
+#dice {
+	font-size: 3em;
+	padding: 0 0 0 0;
+}
+
+#pices {
+	position: absolute;
+	width: 100vw;
+	height: 90vh;
+	bottom: 0;
+	z-index: 1
+}
+
+#pices p {
+	position: absolute;
+	font-size: 2em;
+	bottom: 1vh;
+	left: 1vw;
+}
+</style>
+<script>
+window.onload = function () {
+	board();
+	ladder1();
+	ladder2();
+	ladder3();
+	ladder4();
+	ladder5();
+	ladder6();
+	ladder7();
+	snake1();
+	snake2();
+	snake3();
+	snake4();
+	snake5();
+	snake6();
+	snake7(); // game display loader
+};
+
+var boardblocks = 100,
+	html = "",
+	playersno = 0,
+	playerinfo = [],
+	player = 0,
+	playeri = 0,
+	firstpice = 9812,
+	roleno = 0,
+	dice = [9856, 9857, 9858, 9859, 9860, 9861];
+
+function board() {
+	for (var i = boardblocks; i > 0; i--) {
+		if (i == 90 || i == 70 || i == 50 || i == 30 || i == 10) {
+			for (var j = i - 9; j <= i; j++) {
+				if (j % 5 == 4) {
+					html += "<div class='box red' id='" + j + "'><p class='boxnumber'>" + j + "</p></div>";
+				} else if (j % 3 == 0) {
+					html += "<div class='box green' id='" + j + "'><p class='boxnumber'>" + j + "</p></div>";
+				} else if (j % 7 == 0) {
+					html += "<div class='box orange' id='" + j + "'><p class='boxnumber'>" + j + "</p></div>";
+				} else if (j % 2 == 0) {
+					html += "<div class='box blue' id='" + j + "'><p class='boxnumber'>" + j + "</p></div>";
+				} else {
+					html += "<div class='box' id='" + j + "'><p class='boxnumber'>" + j + "</p></div>";
+				}
+			};
+			i -= 10;
+		};
+		if (i >= 1) {
+			if (i % 5 == 0) {
+				html += "<div class='box red' id='" + i + "'><p class='boxnumber'>" + i + "</p></div>";
+			} else if (i % 3 == 0) {
+				html += "<div class='box green' id='" + i + "'><p class='boxnumber'>" + i + "</p></div>";
+			} else if (i % 7 == 0) {
+				html += "<div class='box orange' id='" + i + "'><p class='boxnumber'>" + i + "</p></div>";
+			} else if (i % 2 == 0) {
+				html += "<div class='box blue' id='" + i + "'><p class='boxnumber'>" + i + "</p></div>";
+			} else {
+				html += "<div class='box' id='" + i + "'><p class='boxnumber'>" + i + "</p></div>";
+			}
+		}
+	};
+	document.getElementById("board").innerHTML = html;
+}
+
+function ladder1() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		stars = "",
+		l1w = (h / 11) * 2,
+		l1h = (w / 100) * 4,
+		ladder1h = Math.sqrt(l1h * l1h + l1w * l1w),
+		l1s = ladder1h / 13,
+		ladder1ang = Math.atan(l1h / l1w) * (180 / Math.PI);
+	for (var i = 1; i < l1s; i++) {
+		stars += "<div class='steps orange'></div>";
+	}
+	document.getElementById("ladder1").style = "height: " + ladder1h + "px; transform: rotate(" + ladder1ang + "deg);"
+	document.getElementById("ladder1").innerHTML = stars;
+}
+
+function ladder2() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		stars = "",
+		l1w = (h / 11),
+		l1h = (w / 100) * 4,
+		ladder1h = Math.sqrt(l1h * l1h + l1w * l1w),
+		l1s = ladder1h / 13,
+		ladder1ang = -Math.atan(l1h / l1w) * (180 / Math.PI) + 20;
+	for (var i = 1; i < l1s; i++) {
+		stars += "<div class='steps blue'></div>";
+	}
+	document.getElementById("ladder2").style = "height: " + ladder1h + "px; transform: rotate(" + ladder1ang + "deg);"
+	document.getElementById("ladder2").innerHTML = stars;
+}
+
+function ladder3() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		stars = "",
+		l1w = (h / 11) * 6,
+		l1h = (w / 10) * 4,
+		ladder1h = Math.sqrt(l1h * l1h + l1w * l1w),
+		l1s = ladder1h / 13,
+		ladder1ang = -(Math.atan(l1h / l1w) * (180 / Math.PI));
+	for (var i = 1; i < l1s; i++) {
+		stars += "<div class='steps blue'></div>";
+	}
+	document.getElementById("ladder3").style = "height: " + ladder1h + "px; transform: rotate(" + ladder1ang + "deg);"
+	document.getElementById("ladder3").innerHTML = stars;
+}
+
+function ladder4() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		stars = "",
+		l1w = (h / 11),
+		l1h = (w / 10),
+		ladder1h = Math.sqrt(l1h * l1h + l1w * l1w),
+		l1s = ladder1h / 13,
+		ladder1ang = (Math.atan(l1h / l1w) * (180 / Math.PI));
+	for (var i = 1; i < l1s; i++) {
+		stars += "<div class='steps red'></div>";
+	}
+	document.getElementById("ladder4").style = "height: " + ladder1h + "px; transform: rotate(" + ladder1ang + "deg);"
+	document.getElementById("ladder4").innerHTML = stars;
+}
+
+function ladder5() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		stars = "",
+		l1w = (h / 11) * 2,
+		l1h = (w / 10) * 1,
+		ladder1h = Math.sqrt(l1h * l1h + l1w * l1w),
+		l1s = ladder1h / 13,
+		ladder1ang = (Math.atan(l1h / l1w) * (180 / Math.PI));
+	for (var i = 1; i < l1s; i++) {
+		stars += "<div class='steps green'></div>";
+	}
+	document.getElementById("ladder5").style = "height: " + ladder1h + "px; transform: rotate(" + ladder1ang + "deg);"
+	document.getElementById("ladder5").innerHTML = stars;
+}
+
+function ladder6() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		stars = "",
+		l1w = (h / 11) * 2,
+		l1h = (w / 10) * 2,
+		ladder1h = Math.sqrt(l1h * l1h + l1w * l1w),
+		l1s = ladder1h / 13,
+		ladder1ang = -(Math.atan(l1h / l1w) * (180 / Math.PI));
+	for (var i = 1; i < l1s; i++) {
+		stars += "<div class='steps red'></div>";
+	}
+	document.getElementById("ladder6").style = "height: " + ladder1h + "px; transform: rotate(" + ladder1ang + "deg);"
+	document.getElementById("ladder6").innerHTML = stars;
+}
+
+function ladder7() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		stars = "",
+		l1w = (h / 11) * 2,
+		l1h = (w / 10) * 2,
+		ladder1h = Math.sqrt(l1h * l1h + l1w * l1w),
+		l1s = ladder1h / 13,
+		ladder1ang = (Math.atan(l1h / l1w) * (180 / Math.PI));
+	for (var i = 1; i < l1s; i++) {
+		stars += "<div class='steps orange'></div>";
+	}
+	document.getElementById("ladder7").style = "height: " + ladder1h + "px; transform: rotate(" + ladder1ang + "deg);"
+	document.getElementById("ladder7").innerHTML = stars;
+}
+
+function snake1() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		sw = (w / 10) * 2,
+		sh = (h / 10) * 2,
+		snakeh = Math.sqrt(sw * sw + sh * sh),
+		snakeang = -(Math.atan(sh / sw) * 180 / Math.PI);
+	document.getElementById("snake1").style = "width: " + snakeh + "px; transform: rotate(" + snakeang + "deg);";
+}
+
+function snake2() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		sw = (w / 10) * 4,
+		sh = (h / 10) * 4,
+		snakeh = Math.sqrt(sw * sw + sh * sh),
+		snakeang = (Math.atan(sh / sw) * 180 / Math.PI);
+	document.getElementById("snake2").style = "width: " + snakeh + "px; transform: rotate(" + snakeang + "deg) rotateY(180deg);";
+}
+
+function snake3() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		sw = (w / 10) * 5,
+		sh = (h / 10) * 7,
+		snakeh = Math.sqrt(sw * sw + sh * sh),
+		snakeang = -(Math.atan(sh / sw) * 180 / Math.PI);
+	document.getElementById("snake3").style = "width: " + (snakeh - 20) + "px; transform: rotate(" + snakeang + "deg);";
+}
+
+function snake4() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		sw = (w / 10) * 0.2,
+		sh = (h / 10) * 4,
+		snakeh = Math.sqrt(sw * sw + sh * sh),
+		snakeang = -(Math.atan(sh / sw) * 180 / Math.PI);
+	document.getElementById("snake4").style = "width: " + (snakeh - 30) + "px; transform: rotate(" + snakeang + "deg);";
+}
+
+function snake5() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		sw = (w / 10) * 3,
+		sh = (h / 10) * 2,
+		snakeh = Math.sqrt(sw * sw + sh * sh),
+		snakeang = -(Math.atan(sh / sw) * 180 / Math.PI);
+	document.getElementById("snake5").style = "width: " + (snakeh - 30) + "px; transform: rotate(" + snakeang + "deg);";
+}
+
+function snake6() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		sw = (w / 10) * 0.2,
+		sh = (h / 10) * 3,
+		snakeh = Math.sqrt(sw * sw + sh * sh),
+		snakeang = -(Math.atan(sh / sw) * 180 / Math.PI);
+	document.getElementById("snake6").style = "width: " + (snakeh - 30) + "px; transform: rotate(" + snakeang + "deg);";
+}
+
+function snake7() {
+	var h = window.innerHeight,
+		w = window.innerWidth,
+		sw = (w / 10) * 4.5,
+		sh = (h / 10) * 0.1,
+		snakeh = Math.sqrt(sw * sw + sh * sh),
+		snakeang = -(Math.atan(sh / sw) * 180 / Math.PI);
+	document.getElementById("snake7").style = "width: " + (snakeh - 30) + "px; transform: rotate(" + snakeang + "deg) rotateY(180deg);";
+} // game display
+
+function playerstart() {
+	playersno = document.getElementById("playercount").value;
+	for (var i = 0; i < playersno; i++) {
+		playerinfo.push({
+			"x": 0,
+			"y": 0,
+		});
+	}
+	playerturn();
+	noofplayers();
+}
+
+function noofplayers() {
+	html = "";
+	document.getElementById("playinfo").style = "display:none;"
+	for (var i = 1; i <= playersno; i++) {
+		var pice = firstpice + i;
+		html += "<p id='player" + i + "'>Player" + i + " = &#" + pice + ";</p>";
+	}
+	document.getElementById("players").innerHTML = html;
+	html = "";
+	for (var i = 1; i <= playersno; i++) {
+		html += "<p id='p" + i + "'>&#" + (firstpice + i) + ";</p>";
+	}
+	document.getElementById("pices").innerHTML = html;
+}
+
+function role() {
+	roleno = Math.floor(Math.random() * 6)+1;
+	document.getElementById("dice").innerHTML = "&#" + dice[roleno - 1] + ";";
+	move();
+	playerturn();
+}
+
+function playerturn() {
+	player += 1;
+	if (player > playersno) {
+		player = 1;
+	};
+	document.getElementById("player").innerHTML = "<p>Player " + player + " turn</p>";
+}
+
+function move() {
+	playeri = player - 1;
+	if (playerinfo[playeri].y == 1 || playerinfo[playeri].y == 3 || playerinfo[playeri].y == 5 || playerinfo[playeri].y == 7 || playerinfo[playeri].y == 9) {
+		playerinfo[playeri].x -= roleno;
+		if (playerinfo[playeri].x < 0) {
+			if (playerinfo[playeri].x < 0 && playerinfo[playeri].y == 9) {
+				playerinfo[playeri].x += roleno;
+			} else {
+				playerinfo[playeri].x = -playerinfo[playeri].x;
+				playerinfo[playeri].y += 1;
+			}
+		}
+	} else {
+		playerinfo[playeri].x += roleno;
+		if (playerinfo[playeri].x > 10) {
+			playerinfo[playeri].x = 10 - (playerinfo[playeri].x - 10);
+			playerinfo[playeri].y += 1;
+		}
+	}
+	if (playerinfo[playeri].x < 0 && playerinfo[playeri].y == 9) {
+		playerinfo[playeri].x += roleno;
+	}
+	for (i = 0; i < playerinfo.length; i++) {
+		var pp = "p" + (i + 1);
+		if (playerinfo[i].y == 1 || playerinfo[i].y == 3 || playerinfo[i].y == 5 || playerinfo[i].y == 7 || playerinfo[i].y == 9) {
+			document.getElementById(pp).style = "left: " + (playerinfo[i].x * 10 + 1) + "vw; bottom: " + (playerinfo[i].y * 9 + 1) + "vh;";
+		} else {
+			document.getElementById(pp).style = "left: " + (playerinfo[i].x * 10 - 9) + "vw; bottom: " + (playerinfo[i].y * 9 + 1) + "vh;";
+		}
+	}
+	for (i = 0; i < playerinfo.length; i++) {
+		if (playerinfo[i].x == 3 && playerinfo[i].y == 0) {
+			playerinfo[i].x = 1;
+			playerinfo[i].y = 2;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 8 && playerinfo[i].y == 0) {
+			playerinfo[i].x = 10;
+			playerinfo[i].y = 2;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 8 && playerinfo[i].y == 2) {
+			playerinfo[i].x = 4;
+			playerinfo[i].y = 8;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 2 && playerinfo[i].y == 5) {
+			playerinfo[i].x = 3;
+			playerinfo[i].y = 7;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 4 && playerinfo[i].y == 7) {
+			playerinfo[i].x = 6;
+			playerinfo[i].y = 8;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 0 && playerinfo[i].y == 7) {
+			setTimeout(winner(i), 600);
+		} else if (playerinfo[i].x == 10 && playerinfo[i].y == 8) {
+			playerinfo[i].y = 9;
+			playerinfo[i].x = 9;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 3 && playerinfo[i].y == 9) {
+			playerinfo[i].x = 1;
+			playerinfo[i].y = 7;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 5 && playerinfo[i].y == 9) {
+			playerinfo[i].x = 9;
+			playerinfo[i].y = 5;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 8 && playerinfo[i].y == 8) {
+			playerinfo[i].x = 2;
+			playerinfo[i].y = 1;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 3 && playerinfo[i].y == 5) {
+			playerinfo[i].x = 0;
+			playerinfo[i].y = 3;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 8 && playerinfo[i].y == 5) {
+			playerinfo[i].y = 2;
+			playerinfo[i].x = 9;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 2 && playerinfo[i].y == 6) {
+			playerinfo[i].y = 2;
+			playerinfo[i].x = 2;
+			setTimeout(snakesladders, 500);
+		} else if (playerinfo[i].x == 3 && playerinfo[i].y == 1) {
+			playerinfo[i].x = 7;
+			setTimeout(snakesladders, 500);
+		}
+	}
+
+	if (playerinfo[playeri].x == 0 && playerinfo[playeri].y == 9) {
+		winner(playeri);
+	}
+}
+
+function snakesladders() {
+	for (i = 0; i < playerinfo.length; i++) {
+		var pp = "p" + (i + 1);
+		if (playerinfo[i].y == 1 || playerinfo[i].y == 3 || playerinfo[i].y == 5 || playerinfo[i].y == 7 || playerinfo[i].y == 9) {
+			document.getElementById(pp).style = "left: " + (playerinfo[i].x * 10 + 1) + "vw; bottom: " + (playerinfo[i].y * 9 + 1) + "vh;";
+		} else {
+			document.getElementById(pp).style = "left: " + (playerinfo[i].x * 10 - 9) + "vw; bottom: " + (playerinfo[i].y * 9 + 1) + "vh;";
+		}
+	}
+}
+
+function winner() {
+	document.getElementById("playinfo").style = "display: flex;"
+	document.getElementById("playinfo").innerHTML = "<p>Congratulations! Player " + player + " Has won the game!</p>"
+}
+
+</script>
